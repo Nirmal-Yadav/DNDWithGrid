@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { componentsArray } from "../DraggableData";
+import DailogBox from "../Components/DailogBox";
 
-function DraggableComponents() {
+function DraggableComponents({ getComponentType }) {
   const [components, setComponents] = useState([]);
   const [dropData, setDropData] = useState("");
 
@@ -10,14 +11,15 @@ function DraggableComponents() {
   }, []);
 
   const dargStart = (e) => {
-    console.log("e", e.target);
-    console.log("Dragging:", e.target.getAttribute("name"));
+    // console.log("e", e.target);
+    // console.log("Dragging:", e.target.getAttribute("name"));
   };
 
   const dragEnd = (e) => {
-    console.log(":", e.target.getAttribute("name"));
+    // console.log(":", e.target.getAttribute("name"));
     if (e.target.getAttribute("name")) {
       setDropData(e.target.getAttribute("name"));
+      getComponentType(e.target.getAttribute("name"));
     }
   };
 
@@ -37,6 +39,7 @@ function DraggableComponents() {
           </div>
         );
       })}{" "}
+      {/* <DailogBox /> */}
     </div>
   );
 }

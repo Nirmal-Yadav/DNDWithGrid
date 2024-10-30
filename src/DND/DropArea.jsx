@@ -1,17 +1,18 @@
 import React, { useState } from "react";
+import DailogBox from "../Components/DailogBox";
 
-function DropArea() {
+function DropArea({ dropData }) {
   const onDrop = (e) => {
-    // console.log("edrop", e);
-    setDropData({ id: 1, name: "input" });
+    console.log("edrop", dropData);
   };
   const dragEnter = (e) => {
-    // console.log("entere", e);
+    console.log("enter", dropData);
   };
 
   const dragLeave = (e) => {
-    // console.log("leavee", e);
+    console.log("leavee", dropData);
   };
+  console.log("dropData", dropData);
   return (
     <div
       style={{ border: "2px solid black", height: "100px" }}
@@ -19,7 +20,26 @@ function DropArea() {
       onDragEnter={dragEnter}
       onDragLeave={dragLeave}
       onDragOver={(e) => e.preventDefault()}
-    ></div>
+    >
+      {dropData === "input" ? (
+        <input />
+      ) : dropData === "combobox" ? (
+        <select name="cars" id="cars">
+          {/* <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="mercedes">Mercedes</option>
+          <option value="audi">Audi</option> */}
+        </select>
+      ) : dropData === "radio" ? (
+        <input type="radio" />
+      ) : dropData === "checkbox" ? (
+        <input type="checkbox" />
+      ) : dropData === "label" ? (
+        <label />
+      ) : (
+        ""
+      )}
+    </div>
   );
 }
 
