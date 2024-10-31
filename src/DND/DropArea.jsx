@@ -1,46 +1,46 @@
-import React, { useState } from "react";
-import DailogBox from "../Components/DailogBox";
+import React from "react";
 
-function DropArea({ dropData }) {
-  const onDrop = (e) => {
-    console.log("edrop", dropData);
-  };
-  const dragEnter = (e) => {
-    console.log("enter", dropData);
+const DropArea = ({ dropData, onDrop }) => {
+  const handleDrop = () => {
+    onDrop(dropData);
   };
 
-  const dragLeave = (e) => {
-    console.log("leavee", dropData);
+  const property = {
+    href: "link",
+    className: "hover",
   };
-  console.log("dropData", dropData);
+
+  const comboOptions = [];
+
+  const customStyle = { height: "50px" };
+
   return (
     <div
       style={{ border: "2px solid black", height: "100px" }}
-      onDrop={onDrop}
-      onDragEnter={dragEnter}
-      onDragLeave={dragLeave}
       onDragOver={(e) => e.preventDefault()}
+      onDrop={handleDrop}
     >
       {dropData === "input" ? (
-        <input />
+        <input {...property} style={customStyle} />
       ) : dropData === "combobox" ? (
         <select name="cars" id="cars">
-          {/* <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option> */}
+          {comboOptions.map((option, index) => (
+            <option key={index} value={option.key}>
+              {option.label}
+            </option>
+          ))}
         </select>
       ) : dropData === "radio" ? (
         <input type="radio" />
       ) : dropData === "checkbox" ? (
         <input type="checkbox" />
       ) : dropData === "label" ? (
-        <label />
+        <label>Label</label>
       ) : (
-        ""
+        <p>Drop your component here</p>
       )}
     </div>
   );
-}
+};
 
 export default DropArea;

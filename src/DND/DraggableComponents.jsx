@@ -1,47 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { componentsArray } from "../DraggableData";
-import DailogBox from "../Components/DailogBox";
 
-function DraggableComponents({ getComponentType }) {
-  const [components, setComponents] = useState([]);
-  const [dropData, setDropData] = useState("");
-
-  useEffect(() => {
-    setComponents(componentsArray);
-  }, []);
-
-  const dargStart = (e) => {
-    // console.log("e", e.target);
-    // console.log("Dragging:", e.target.getAttribute("name"));
-  };
-
-  const dragEnd = (e) => {
-    // console.log(":", e.target.getAttribute("name"));
-    if (e.target.getAttribute("name")) {
-      setDropData(e.target.getAttribute("name"));
-      getComponentType(e.target.getAttribute("name"));
-    }
+const DraggableComponents = ({ getComponentType }) => {
+  const handleDragStart = (item) => {
+    getComponentType(item.name);
   };
 
   return (
     <div>
-      {components?.map((item, index) => {
-        return (
-          <div
-            style={{ height: "50px", width: "80px", border: "2px solid red" }}
-            draggable="true"
-            key={index}
-            onDragStart={dargStart}
-            onDragEnd={dragEnd}
-            name={item.name}
-          >
-            {item.name}
-          </div>
-        );
-      })}{" "}
-      {/* <DailogBox /> */}
+      {componentsArray.map((item) => (
+        <div
+          key={item.id}
+          draggable
+          onDragStart={() => handleDragStart(item)}
+          style={{
+            margin: "5px",
+            padding: "5px",
+            border: "1px solid gray",
+            width: "100px",
+          }}
+        >
+          {item.name}
+        </div>
+      ))}
     </div>
   );
-}
+};
 
 export default DraggableComponents;
