@@ -1,7 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./DailogBox.css";
+import { useDispatch, useSelector } from "react-redux";
+import { closeDialog1 } from "../redux/actions";
 
-const DailogBox = ({ dropData, getComponentType }) => {
+const DailogBox = () => {
+  const dispatch = useDispatch();
+
   const [properties, setProperties] = useState({});
   const [comboOptions, setLocalComboOptions] = useState([]);
   const [style, setStyle] = useState({});
@@ -72,20 +76,10 @@ const DailogBox = ({ dropData, getComponentType }) => {
   const closeDialog = () => {
     if (dialogRef.current) {
       dialogRef.current.close();
-      getComponentType("");
+      dispatch(closeDialog1());
       setLocalComboOptions([]);
     }
   };
-
-  useEffect(() => {
-    if (dropData) {
-      if (dialogRef.current) {
-        dialogRef.current.showModal();
-      }
-    } else {
-      closeDialog();
-    }
-  }, [dropData]);
 
   return (
     <div>

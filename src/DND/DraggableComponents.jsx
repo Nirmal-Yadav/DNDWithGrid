@@ -1,9 +1,12 @@
 import React from "react";
 import { componentsArray } from "../DraggableData";
+import { useSelector } from "react-redux";
 
-const DraggableComponents = ({ getComponentType }) => {
+const DraggableComponents = ({ handleDrag }) => {
+  const dialogState = useSelector((state) => state.dialogState);
+  console.log("dailogState", dialogState);
   const handleDragStart = (item) => {
-    getComponentType(item.name);
+    handleDrag(item.name);
   };
 
   return (

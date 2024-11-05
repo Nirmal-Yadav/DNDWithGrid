@@ -1,8 +1,17 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { openDialog, setDropData } from "../redux/actions";
 
-const DropArea = ({ dropData, onDrop }) => {
+const DropArea = ({ element }) => {
+  const { dropData } = useSelector((state) => state.dropData);
+
+  console.log("dropData", dropData);
+  const dispatch = useDispatch();
   const handleDrop = () => {
-    onDrop(dropData);
+    console.log("openDialog()", openDialog());
+    console.log("onDrop", element);
+    dispatch(openDialog());
+    dispatch(setDropData(element));
   };
 
   const property = {

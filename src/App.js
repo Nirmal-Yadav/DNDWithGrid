@@ -2,24 +2,33 @@ import React, { useState } from "react";
 import DraggableComponents from "./DND/DraggableComponents";
 import DropArea from "./DND/DropArea";
 import DailogBox from "./Components/DailogBox";
+import { useDispatch, useSelector } from "react-redux";
+import { openDialog, setDropData } from "./redux/actions";
 
 function App() {
-  const [dropData, setDropData] = useState("");
+  const [element, setElement]= useState("")
 
-  const getComponentType = (data) => {
-    console.log("Setting dropData:", data);
-    setDropData(data); }
+  const dropData = useSelector((state)=> state.dropData.dropData)
+  const dialogState = useSelector((state)=> state.dialogState)
 
-  const handleDrop = (data) => {
-    console.log("Dropped data:", data);
-    getComponentType(data); 
-  };
+  console.log('dialogState', dialogState)
 
+  console.log('dropData', dropData)
+
+ 
+const handleDrag = (data)=>{
+
+setElement(data)
+}
+ 
   return (
     <div>
-      <DraggableComponents getComponentType={getComponentType} />
-      <DropArea dropData={dropData} onDrop={handleDrop} />
-    {  dropData && <DailogBox dropData={dropData} getComponentType={getComponentType} />}
+      <DraggableComponents   
+      handleDrag={handleDrag}
+      />
+      <DropArea element={element} 
+        />
+    {  dialogState && <DailogBox  />}
     </div>
   );
 }
