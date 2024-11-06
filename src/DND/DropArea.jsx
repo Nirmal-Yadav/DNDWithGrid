@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openDialog, setDropData } from "../redux/actions";
 
 const DropArea = ({ element }) => {
+  const [localElement, setLocalElement] = useState("");
   const { dropData } = useSelector((state) => state.dropData);
 
   console.log("dropData", dropData);
   const dispatch = useDispatch();
+
   const handleDrop = () => {
     console.log("openDialog()", openDialog());
     console.log("onDrop", element);
     dispatch(openDialog());
     dispatch(setDropData(element));
+    setLocalElement(element);
   };
 
   const property = {
@@ -25,13 +28,13 @@ const DropArea = ({ element }) => {
 
   return (
     <div
-      style={{ border: "2px solid black", height: "100px" }}
+      style={{ border: "2px solid black", height: "100%", width: "100%" }}
       onDragOver={(e) => e.preventDefault()}
       onDrop={handleDrop}
     >
-      {dropData === "input" ? (
+      {localElement === "input" ? (
         <input {...property} style={customStyle} />
-      ) : dropData === "combobox" ? (
+      ) : localElement === "combobox" ? (
         <select name="cars" id="cars">
           {comboOptions.map((option, index) => (
             <option key={index} value={option.key}>
@@ -39,11 +42,11 @@ const DropArea = ({ element }) => {
             </option>
           ))}
         </select>
-      ) : dropData === "radio" ? (
+      ) : localElement === "radio" ? (
         <input type="radio" />
-      ) : dropData === "checkbox" ? (
+      ) : localElement === "checkbox" ? (
         <input type="checkbox" />
-      ) : dropData === "label" ? (
+      ) : localElement === "label" ? (
         <label>Label</label>
       ) : (
         <p>Drop your component here</p>

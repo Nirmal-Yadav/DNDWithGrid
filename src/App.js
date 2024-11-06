@@ -4,6 +4,7 @@ import DropArea from "./DND/DropArea";
 import DailogBox from "./Components/DailogBox";
 import { useDispatch, useSelector } from "react-redux";
 import { openDialog, setDropData } from "./redux/actions";
+import Table from "./table/Table";
 
 function App() {
   const [element, setElement]= useState("")
@@ -26,8 +27,8 @@ setElement(data)
       <DraggableComponents   
       handleDrag={handleDrag}
       />
-      <DropArea element={element} 
-        />
+      {/* <DropArea element={element}  /> */}
+        <Table element={element}/>
     {  dialogState && <DailogBox  />}
     </div>
   );
